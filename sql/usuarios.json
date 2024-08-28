@@ -1,4 +1,15 @@
-[
+[   {
+        "id": 0,
+        "nome": "Administrador Geral",
+        "cpf": "000.000.000-00",
+        "data_nascimento": "1900-01-01",
+        "endereco": "",
+        "telefone": "(00) 00000-0000",
+        "email": "admin@email.com",
+        "perfil": "0",
+        "senha": "$2b$12$TJYfq2QCDwstKUtrpx6ZK.wnKS2AXPqhcKGVsffuVetYg1eUTMot2",
+        "token": ""
+    },
     {
         "id": 1,
         "nome": "João Silva",
@@ -7,6 +18,7 @@
         "endereco": "Rua A, 123",
         "telefone": "(11) 99999-8888",
         "email": "joao@email.com",
+        "perfil": "1",
         "senha": "$2b$12$TJYfq2QCDwstKUtrpx6ZK.wnKS2AXPqhcKGVsffuVetYg1eUTMot2",
         "token": ""
     },
@@ -18,6 +30,7 @@
         "endereco": "Rua B, 456",
         "telefone": "(21) 98888-7777",
         "email": "maria@email.com",
+        "perfil": "1",
         "senha": "$2b$12$TJYfq2QCDwstKUtrpx6ZK.wnKS2AXPqhcKGVsffuVetYg1eUTMot2",
         "token": ""
     },
@@ -29,6 +42,7 @@
         "endereco": "Rua C, 789",
         "telefone": "(31) 97777-6666",
         "email": "carlos@email.com",
+        "perfil": "1",
         "senha": "$2b$12$TJYfq2QCDwstKUtrpx6ZK.wnKS2AXPqhcKGVsffuVetYg1eUTMot2",
         "token": ""
     },
@@ -40,6 +54,7 @@
         "endereco": "Rua D, 101",
         "telefone": "(41) 96666-5555",
         "email": "ana@email.com",
+        "perfil": "1",
         "senha": "$2b$12$TJYfq2QCDwstKUtrpx6ZK.wnKS2AXPqhcKGVsffuVetYg1eUTMot2",
         "token": ""
     },
@@ -51,6 +66,7 @@
         "endereco": "Rua E, 202",
         "telefone": "(51) 95555-4444",
         "email": "paulo@email.com",
+        "perfil": "1",
         "senha": "$2b$12$TJYfq2QCDwstKUtrpx6ZK.wnKS2AXPqhcKGVsffuVetYg1eUTMot2",
         "token": ""
     },
@@ -62,6 +78,7 @@
         "endereco": "Rua F, 303",
         "telefone": "(61) 94444-3333",
         "email": "fernanda@email.com",
+        "perfil": "1",
         "senha": "$2b$12$TJYfq2QCDwstKUtrpx6ZK.wnKS2AXPqhcKGVsffuVetYg1eUTMot2",
         "token": ""
     },
@@ -73,6 +90,7 @@
         "endereco": "Rua G, 404",
         "telefone": "(71) 93333-2222",
         "email": "ricardo@email.com",
+        "perfil": "1",
         "senha": "$2b$12$TJYfq2QCDwstKUtrpx6ZK.wnKS2AXPqhcKGVsffuVetYg1eUTMot2",
         "token": ""
     },
@@ -84,6 +102,7 @@
         "endereco": "Rua H, 505",
         "telefone": "(81) 92222-1111",
         "email": "juliana@email.com",
+        "perfil": "1",
         "senha": "$2b$12$TJYfq2QCDwstKUtrpx6ZK.wnKS2AXPqhcKGVsffuVetYg1eUTMot2",
         "token": ""
     },
@@ -95,6 +114,7 @@
         "endereco": "Rua I, 606",
         "telefone": "(91) 91111-0000",
         "email": "marcos@email.com",
+        "perfil": "1",
         "senha": "$2b$12$TJYfq2QCDwstKUtrpx6ZK.wnKS2AXPqhcKGVsffuVetYg1eUTMot2",
         "token": ""
     },
@@ -106,6 +126,7 @@
         "endereco": "Rua J, 707",
         "telefone": "(92) 90000-9999",
         "email": "patricia@email.com",
+        "perfil": "1",
         "senha": "$2b$12$TJYfq2QCDwstKUtrpx6ZK.wnKS2AXPqhcKGVsffuVetYg1eUTMot2",
         "token": ""
     }

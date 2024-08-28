@@ -1,26 +1,33 @@
 {% extends "pages/base.html" %}
-{% block subtitulo %}Confirmação de Pedido{% endblock %}
+{% block subtitulo %}Detalhes do Pedido {{ "{:06d}".format(pedido.id) if pedido }}{% endblock %}
 {% block conteudo %}
 {% if not pedido or not pedido.itens: %}
-<h3>Não há como confirmar o pedido de um carrinho de compras vazio.</h3>
+<h3>Não há como exibir detalhes de um pedido inexistente ou vazio.</h3>
 {% else: %}
-<h1 class="display-5"><b>Confirme os Dados de Seu Pedido</b></h1>
+<h1 class="display-5">Detalhes do Pedido <b>{{ "{:06d}".format(pedido.id) }}</b> ({{pedido.estado}})</h1>
 <hr>
 <div class="row">
-    <div class="col-4">
-        <h2 class="display-6">Endereço de Entrega</h2>
-        <p class="lead">
-            <b>Endereço de Entrega</b> <br>
+    <div class="col-4 pe-4">
+        <h2 class="display-6 fs-2">Endereço de Entrega</h2>
+        <p class="lead">            
             {{pedido.endereco_entrega | safe}}
         </p>
-        <h2 class="display-6">Valor</h2>
-        <h3 class="text-success">R$ {{pedido.valor_total}}</h3>
-        <a href="/cliente/pagamentopedido/{{pedido.id}}" class="btn btn-danger btn-lg mt-3">
-            <img src="/static/img/iconemercadopago.svg" style="height: 32px">
+        <h2 class="display-6 fs-2">Valor</h2>
+        <h3 class="text-success">R$ {{ "{:,.2f}".format(pedido.valor_total) }}</h3>
+        {% if pedido.estado == "pendente": %}
+        <button class="btn btn-danger btn-lg w-100 mt-3" data-bs-toggle="modal" data-bs-target="#confirmarCancelamento">
+            <i class="bi bi-x-lg"></i>
+            Cancelar Pedido</button>
+        {% endif %}
+        {% if pedido.estado in ["carrinho", "pendente"]: %}
+        <a href="/cliente/pagamentopedido/{{pedido.id}}" class="btn btn-success btn btn-lg mt-3 w-100">
+            <img src="/static/img/iconemercadopago.svg" style="height: 24px">
             Pagar com Mercado Pago</a>
+        {% include "includes/modal_confirmar_cancelar_pedido.html" %}
+        {% endif %}
     </div>
-    <div class="col-8">
-        <h2 class="display-6">Itens Neste Pedido</h2>
+    <div class="col-8 ps-4 border-start">
+        <h2 class="display-6 fs-2">Itens Neste Pedido</h2>
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -36,13 +43,14 @@
                 <tr>
                     <td>
                         <a href="/produto/{{i.id_produto}}">
-                            <img src="/static/img/produtos/{{'{:04d}'.format(i.id_produto)}}.jpg" style="height: 48px;" class="rounded img-thumbnail">
+                            <img src="/static/img/produtos/{{'{:04d}'.format(i.id_produto)}}.jpg" style="height: 48px;"
+                                class="rounded img-thumbnail">
                         </a>
                     </td>
                     <td><a href="/produto/{{i.id_produto}}">{{ i.nome_produto }}</a></td>
-                    <td>{{i.valor_produto}}</td>
+                    <td>{{"{:,.2f}".format(i.valor_produto)}}</td>
                     <td><span class="mx-2">{{i.quantidade}}</span></td>
-                    <td>{{i.valor_item}}</td>
+                    <td>{{"{:,.2f}".format(i.valor_item)}}</td>
                 </tr>
                 {% endfor %}
             </tbody>
