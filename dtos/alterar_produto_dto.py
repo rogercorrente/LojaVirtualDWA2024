@@ -4,12 +4,19 @@ from datetime import date, datetime, timedelta
 from util.validators import *
 
 
-class InserirProdutoDto(BaseModel):
+class AlterarProdutoDto(BaseModel):
+    id: int
     nome: str
     preco: float
     descricao: str
     estoque: int
 
+    @field_validator("id")
+    def validar_id(cls, v):
+        msg = is_greater_than(v, "Id", 0)
+        if msg: raise ValueError(msg)
+        return v
+    
     @field_validator("nome")
     def validar_nome(cls, v):
         msg = is_size_between(v, "Nome", 2, 128)
