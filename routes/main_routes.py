@@ -3,21 +3,22 @@ from sqlite3 import DatabaseError
 from fastapi import APIRouter, HTTPException, Query, Request, status
 from fastapi.responses import HTMLResponse, JSONResponse
 
-from dtos.entrar_dto import EntrarDTO
+from dtos.entrar_dto import EntrarDto
 from util.html import ler_html
 from dtos.inserir_usuario_dto import InserirUsuarioDTO
 from models.usuario_model import Usuario
 from repositories.usuario_repo import UsuarioRepo
 from repositories.produto_repo import ProdutoRepo
-from util.auth import (
+from util.auth_cookie import (
     conferir_senha,
-    gerar_token,
+    criar_token,
     obter_hash_senha,
 )
 
-from util.cookies import adicionar_cookie_auth, adicionar_mensagem_sucesso
+from util.cookies import TEMPO_COOKIE_AUTH, adicionar_cookie_auth, adicionar_mensagem_sucesso
 from util.pydantic import create_validation_errors
 from util.templates import obter_jinja_templates
+
 
 router = APIRouter(include_in_schema=False)
 templates = obter_jinja_templates("templates/main")
@@ -90,7 +91,7 @@ async def get_entrar(
 
 
 @router.post("/post_entrar", response_class=JSONResponse)
-async def post_entrar(entrar_dto: EntrarDTO):
+async def post_entrar(entrar_dto: EntrarDto):
     cliente_entrou = UsuarioRepo.obter_por_email(entrar_dto.email)
     if (
         (not cliente_entrou)
@@ -105,17 +106,18 @@ async def post_entrar(entrar_dto: EntrarDTO):
             ),
             status_code=status.HTTP_404_NOT_FOUND,
         )
-    token = gerar_token()
-    if not UsuarioRepo.alterar_token(cliente_entrou.id, token):
-        raise DatabaseError(
-            "Não foi possível alterar o token do cliente no banco de dados."
-        )
+    token = criar_token(cliente_entrou.id, cliente_entrou.nome, cliente_entrou.email, cliente_entrou.perfil)
+    # O código a seguir é apenas para autenticação baseada em cookies 
+    # if not UsuarioRepo.alterar_token(cliente_entrou.id, token): 
+    #     raise DatabaseError(
+    #         "Não foi possível alterar o token do cliente no banco de dados."
+    #     )
     response = JSONResponse(content={"redirect": {"url": entrar_dto.return_url}})
     adicionar_mensagem_sucesso(
         response,
         f"Olá, <b>{cliente_entrou.nome}</b>. Seja bem-vindo(a) à Loja Virtual!",
     )
-    adicionar_cookie_auth(response, token)
+    adicionar_cookie_auth(response, token, TEMPO_COOKIE_AUTH)
     return response
 
 

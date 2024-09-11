@@ -14,4 +14,5 @@ class Usuario:
     email: Optional[str] = None
     perfil: Optional[int] = None
     senha: Optional[str] = None
-    token: Optional[str] = None
+    # Usar o campo abaixo somente se for atutenticação por cookie
+    # token: Optional[str] = None
